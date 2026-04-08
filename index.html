@@ -1,8 +1,9 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <title>すみちだぶちらぶち</title>
+
 <style>
 body {
   margin:0;
@@ -14,34 +15,51 @@ body {
   overflow:hidden;
 }
 
+/* 中央固定 */
+.container {
+  position: relative;
+}
+
+/* 文字 */
 h1{
   font-size:15vw;
   color:white;
-  animation: shake 0.1s infinite, zoom 1s infinite alternate;
+  text-align:center;
+  animation: zoom 1s infinite alternate;
 }
 
-/* 震え */
-@keyframes shake {
-  0% { transform: translate(0,0); }
-  25% { transform: translate(-10px,10px); }
-  50% { transform: translate(10px,-10px); }
-  75% { transform: translate(-10px,-10px); }
-  100% { transform: translate(0,0); }
-}
-
-/* 拡大 */
+/* 拡大だけにする */
 @keyframes zoom {
   0% { transform: scale(1); }
-  100% { transform: scale(1.5); }
+  100% { transform: scale(1.3); }
+}
+
+/* 揺れは別要素でやる */
+.glitch {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  text-align:center;
+  animation: shake 0.1s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-5px,5px); }
+  50% { transform: translate(5px,-5px); }
+  75% { transform: translate(-5px,-5px); }
+  100% { transform: translate(0,0); }
 }
 </style>
+
 </head>
 <body>
-<h1>すみちだぶちらぶち</h1>
 
-<script>
-alert("すみちだぶちらぶち");
-</script>
+<div class="container">
+  <h1>すみちだぶちらぶち</h1>
+  <h1 class="glitch">すみちだぶちらぶち</h1>
+</div>
 
 </body>
 </html>
