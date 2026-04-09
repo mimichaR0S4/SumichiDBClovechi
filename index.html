@@ -3,88 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>？？？</title>
+<title>ひみつ♡</title>
 
 <style>
 body {
     margin: 0;
-    background: black;
     overflow: hidden;
-    color: white;
-    font-family: sans-serif;
+    font-family: "Comic Sans MS", "Hiragino Maru Gothic ProN", sans-serif;
     text-align: center;
+    color: white;
+    background: pink;
 }
 
-/* 背景フラッシュ */
-.flash-bg {
-    animation: bgFlash 0.1s infinite alternate;
+/* 背景ふわふわ */
+.bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff9de2, #ffc0cb, #ffb6c1);
+    animation: bgMove 5s infinite alternate;
 }
 
-@keyframes bgFlash {
-    from { background: black; }
-    to { background: darkred; }
+@keyframes bgMove {
+    from { filter: hue-rotate(0deg); }
+    to { filter: hue-rotate(40deg); }
 }
 
 /* 数字 */
 #numbers {
-    font-size: 60px;
+    position: relative;
+    font-size: 50px;
     margin-top: 30vh;
-    letter-spacing: 20px;
+    letter-spacing: 15px;
+    z-index: 2;
 }
 
-/* 最終文字 */
+/* 結果 */
 #result {
     display: none;
-    font-size: 45px;
+    position: relative;
+    font-size: 40px;
     margin-top: 30vh;
-    animation: zoom 0.5s ease forwards;
-    color: gold;
-    text-shadow: 0 0 20px red, 0 0 40px yellow;
+    z-index: 2;
+    color: white;
+    text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+    animation: pop 0.6s ease forwards;
 }
 
-@keyframes zoom {
+@keyframes pop {
     0% {transform: scale(0); opacity: 0;}
     100% {transform: scale(1.3); opacity: 1;}
+}
+
+/* ハート */
+.heart {
+    position: absolute;
+    color: pink;
+    font-size: 20px;
+    animation: float 3s linear infinite;
+}
+
+@keyframes float {
+    from {transform: translateY(100vh);}
+    to {transform: translateY(-10vh);}
 }
 
 /* キラキラ */
 .spark {
     position: absolute;
-    width: 5px;
-    height: 5px;
-    background: yellow;
+    width: 6px;
+    height: 6px;
+    background: white;
     border-radius: 50%;
     animation: sparkle 1s linear infinite;
 }
 
 @keyframes sparkle {
-    from {transform: translateY(0);}
-    to {transform: translateY(-100vh);}
+    from {transform: scale(0);}
+    to {transform: scale(1.5);}
 }
 </style>
 </head>
 
 <body>
 
-<div id="numbers">???</div>
-<div id="result">すみちだぶちらぶち</div>
+<div class="bg"></div>
+
+<div id="numbers">♡ ♡ ♡</div>
+<div id="result">すみちだぶちらぶち♡</div>
 
 <script>
 const numbers = document.getElementById("numbers");
 const result = document.getElementById("result");
 
-// ランダム数字を回す
-let interval = setInterval(() => {
-    let n1 = Math.floor(Math.random() * 9) + 1;
-    let n2 = Math.floor(Math.random() * 9) + 1;
-    let n3 = Math.floor(Math.random() * 9) + 1;
-    numbers.textContent = n1 + " " + n2 + " " + n3;
-}, 80);
+// ハート生成
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    document.body.appendChild(heart);
 
-// 確変突入（背景フラッシュ）
-setTimeout(() => {
-    document.body.classList.add("flash-bg");
-}, 2000);
+    setTimeout(() => heart.remove(), 3000);
+}, 200);
+
+// 数字（ハート風）
+let interval = setInterval(() => {
+    let h = ["💖","💗","💘","💞"];
+    numbers.textContent =
+        h[Math.floor(Math.random()*4)] + " " +
+        h[Math.floor(Math.random()*4)] + " " +
+        h[Math.floor(Math.random()*4)];
+}, 100);
 
 // 停止→結果
 setTimeout(() => {
@@ -92,14 +123,13 @@ setTimeout(() => {
     numbers.style.display = "none";
     result.style.display = "block";
 
-    // キラキラ生成
-    for (let i = 0; i < 50; i++) {
-        let spark = document.createElement("div");
-        spark.className = "spark";
-        spark.style.left = Math.random() * 100 + "vw";
-        spark.style.top = Math.random() * 100 + "vh";
-        spark.style.animationDuration = (Math.random() * 1 + 0.5) + "s";
-        document.body.appendChild(spark);
+    // キラキラ
+    for (let i = 0; i < 40; i++) {
+        let s = document.createElement("div");
+        s.className = "spark";
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(s);
     }
 }, 4000);
 </script>
